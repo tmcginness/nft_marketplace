@@ -76,7 +76,7 @@ const Navbar = () => {
         <Link href="/nfts">
           <div className="flexCenter md:hidden cursor-pointer">
             <Image src={images.logo02} objectFit="contain" width={32} height={32} alt="Logo" />
-            <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">NFT MARKETPLACE</p>
+            <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">MIN<span className="text-nft-red-violet">TED</span></p>
           </div>
         </Link>
 
