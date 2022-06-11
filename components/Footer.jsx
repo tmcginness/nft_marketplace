@@ -5,10 +5,10 @@ import images from '../assets';
 import Button from './Button';
 
 const FooterLinks = ({ heading, items }) => (
-  <div>
-    <h3>{heading}</h3>
+  <div className="flex-1 items-start justify-start">
+    <h3 className="font-poppins dark:text-white text-nft-black-1 font-semibold text-xl mb-10">{heading}</h3>
     {items.map((item, index) => (
-      <p>{item}</p>
+      <p key={index} className="font-poppins dark:text-white text-nft-black-1 font-normal text-base cursor-pointer dark:hover:text-nft-gray-1 hover:text-nft-black-1 my-3">{item}</p>
     ))}
   </div>
 );
@@ -43,6 +43,10 @@ const Footer = () => {
           <FooterLinks
             heading="MINTED"
             items={['Explore', 'How It Works', 'Contact Us']}
+          />
+          <FooterLinks
+            heading="Support"
+            items={['Help Center', 'Terms Of Service', 'Legal', 'Privacy Policy']}
           />
         </div>
       </div>
