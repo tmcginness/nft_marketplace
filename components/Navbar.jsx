@@ -73,7 +73,7 @@ const Navbar = () => {
   return (
     <nav className="flexBetween w-full fixed z-10 p-4 flex-row border-b dark:bg-nft-dark bg-white dark:border-nft-black-1 border-nft-gray-1">
       <div className="flex flex-1 flex-row justify-start">
-        <Link href="/nfts">
+        <Link href="/">
           <div className="flexCenter md:hidden cursor-pointer">
             <Image src={images.logo02} objectFit="contain" width={32} height={32} alt="Logo" />
             <p className="dark:text-white text-nft-black-1 font-semibold text-lg ml-1">MIN<span className="text-nft-red-violet">TED</span></p>
