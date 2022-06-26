@@ -5,6 +5,7 @@ import { useTheme } from 'next-themes';
 import Image from 'next/image';
 import Link from 'next/link';
 
+import { NFTContext } from '../context/NFTContext';
 import images from '../assets';
 import Button from './Button';
 
@@ -40,9 +41,9 @@ const MenuItems = ({ isMobile, active, setActive }) => {
 };
 
 const ButtonGroup = ({ setActive, router }) => {
-  const hasConnected = true;
+  const { connectWallet, currentAccount } = useContext(NFTContext);
 
-  return hasConnected ? (
+  return currentAccount ? (
     <Button
       btnName="Create"
       classStyles="mx-2 rounded-xl"
@@ -56,10 +57,7 @@ const ButtonGroup = ({ setActive, router }) => {
       <Button
         btnName="Connect"
         classStyles="mx-2 rounded-xl"
-        handleClick={() => {
-          setActive('');
-          router.push('/create-nft');
-        }}
+        handleClick={connectWallet}
       />
     );
 };
@@ -80,8 +78,8 @@ const Navbar = () => {
           </div>
         </Link>
 
-        <Link href="/nft">
-          <div className="hidden md:flex" onClick={() => {}}><Image src={images.logo02} objectFit="contain" width={32} height={32} alt="Logo" /></div>
+        <Link href="/">
+          <div className=" cursor-pointer hidden md:flex" onClick={() => {}}><Image src={images.logo02} objectFit="contain" width={32} height={32} alt="Logo" /></div>
         </Link>
       </div>
       <div className="flex flex-initial flex-row justify-end">
