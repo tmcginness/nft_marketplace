@@ -3,7 +3,7 @@ import Web3Modal from 'web3modal';
 import { ethers } from 'ethers';
 import axios from 'axios';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
-import { MarketAddress, MarketABI, MarketAddressABI } from './constants';
+import { MarketAddress, MarketAddressABI } from './constants';
 
 const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
 
@@ -14,6 +14,26 @@ export const NFTContext = React.createContext();
 export const NFTProvider = ({ children }) => {
   const [currentAccount, setCurrentAccount] = useState('');
   const nftCurrency = 'ETH';
+  const [isLoadingNFT, setIsLoadingNFT] = useState(false);
+
+  const fetchNFTs = async () => {
+    setIsLoadingNFT(false);
+
+    const provider = new ethers.providers.JsonRpcProvider();
+    const contract = fetchContract(provider);
+
+    const data = await contract.fetchMarketItems();
+
+    const items = await Promise.all(data.map(async ({ tokenId, seller, owner, price: unformattedPrice }) => {
+      const tokenURI = await contract.tokenURI(tokenId);
+      const { data: { image, name, description } } = await axios.get(tokenURI);
+      const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
+
+      return { price, tokenId: tokenId.toNumber(), id: tokenId.toNumber(), seller, owner, image, name, description, tokenURI };
+    }));
+
+    return items;
+  };
 
   const checkIfWalletIsConnected = async () => {
     if (!window.ethereum) return alert('Please install MetaMask');
@@ -28,11 +48,6 @@ export const NFTProvider = ({ children }) => {
 
     console.log({ accounts });
   };
-
-  useEffect(() => {
-    checkIfWalletIsConnected();
-    createSale('test', '0.025');
-  }, []);
 
   const connectWallet = async () => {
     if (!window.ethereum) return alert('Please install MetaMask');
@@ -86,10 +101,14 @@ export const NFTProvider = ({ children }) => {
     await transaction.wait();
   };
 
+  useEffect(() => {
+    checkIfWalletIsConnected();
+  }, []);
+
   return (
 
     <NFTContext.Provider
-      value={{ nftCurrency, connectWallet, currentAccount, uploadToIPFS, createNFT }}
+      value={{ nftCurrency, connectWallet, createSale, currentAccount, uploadToIPFS, createNFT, fetchNFTs }}
     >
       {children}
     </NFTContext.Provider>
