@@ -20,9 +20,7 @@ const Home = () => {
     fetchNFTs()
       .then((items) => {
         setNfts(items.reverse());
-        console.log('reverse');
         setIsLoading(false);
-        console.log(items);
       });
   }, []);
 
