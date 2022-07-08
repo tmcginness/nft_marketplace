@@ -118,7 +118,7 @@ const NFTDetails = () => {
           <div className="flex flex-row sm:flex-col">
             <Button
               btnName="Checkout"
-              classStyles="mr-5 sm:mr-0 rounded-xl"
+              classStyles="mr-5 sm:mb-5 sm:mr-0 rounded-xl"
               handleClick={() => {}}
             />
             <Button
