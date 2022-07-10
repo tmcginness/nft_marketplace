@@ -12,10 +12,9 @@ const MyNFTs = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
-    fetchMyNFTsOrListedNFTs('fetchMyNFTs')
+    fetchMyNFTsOrListedNFTs('none')
       .then((items) => {
         setNfts(items);
-        setNftsCopy(items);
         setIsLoading(false);
       });
   }, []);

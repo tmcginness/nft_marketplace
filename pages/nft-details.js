@@ -127,7 +127,7 @@ const NFTDetails = () => {
             <Button
               btnName="Checkout"
               classStyles="mr-5 sm:mb-5 sm:mr-0 rounded-xl"
-              handleClick={checkout()}
+              handleClick={checkout}
             />
             <Button
               btnName="Cancel"

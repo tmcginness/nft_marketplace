@@ -36,13 +36,14 @@ export const NFTProvider = ({ children }) => {
   };
 
   const fetchMyNFTsOrListedNFTs = async (type) => {
+    setIsLoadingNFT(false);
+
     const web3Modal = new Web3Modal();
     const connection = await web3Modal.connect();
     const provider = new ethers.providers.Web3Provider(connection);
     const signer = provider.getSigner();
 
     const contract = fetchContract(signer);
-
     const data = type === 'fetchItemsListed'
       ? await contract.fetchItemsListed()
       : await contract.fetchMyNFTs();
@@ -52,8 +53,9 @@ export const NFTProvider = ({ children }) => {
       const { data: { image, name, description } } = await axios.get(tokenURI);
       const price = ethers.utils.formatUnits(unformattedPrice.toString(), 'ether');
 
-      return { price, tokenId: tokenId.toNumber(), id: tokenId.toNumber(), seller, owner, image, name, description, tokenURI };
+      return { price, tokenId: tokenId.toNumber(), seller, owner, image, name, description, tokenURI };
     }));
+
     return items;
   };
 
