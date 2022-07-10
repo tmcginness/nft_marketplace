@@ -7,8 +7,18 @@ import { shortenAddress } from './utils/shortenAddress';
 
 const MyNFTs = () => {
   const { fetchMyNFTsOrListedNFTs, currentAccount } = useContext(NFTContext);
+  const [nftsCopy, setNftsCopy] = useState([]);
   const [nfts, setNfts] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    fetchMyNFTsOrListedNFTs('fetchMyNFTs')
+      .then((items) => {
+        setNfts(items);
+        setNftsCopy(items);
+        setIsLoading(false);
+      });
+  }, []);
 
   if (isLoading) {
     return (
