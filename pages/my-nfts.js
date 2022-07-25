@@ -21,6 +21,25 @@ const MyNFTs = () => {
       });
   }, []);
 
+  useEffect(() => {
+    const sortedNfts = [...nfts];
+
+    switch (activeSelect) {
+      case 'Price (low to high)':
+        setNfts(sortedNfts.sort((a, b) => a.price - b.price));
+        break;
+      case 'Price (high to low)':
+        setNfts(sortedNfts.sort((a, b) => b.price - a.price));
+        break;
+      case 'Recently added':
+        setNfts(sortedNfts.sort((a, b) => b.tokenId - a.tokenId));
+        break;
+      default:
+        setNfts(nfts);
+        break;
+    }
+  }, [activeSelect]);
+
   if (isLoading) {
     return (
       <div className="flexStart min-h-screen">
