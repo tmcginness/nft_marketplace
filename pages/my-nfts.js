@@ -16,6 +16,7 @@ const MyNFTs = () => {
     fetchMyNFTsOrListedNFTs('none')
       .then((items) => {
         setNfts(items);
+        setNftsCopy(items);
         setIsLoading(false);
       });
   }, []);
@@ -27,6 +28,22 @@ const MyNFTs = () => {
       </div>
     );
   }
+
+  const onHandleSearch = (value) => {
+    const filteredNFTs = nfts.filter(({ name }) => name.toLowerCase().includes(value.toLowerCase()));
+
+    if (filteredNFTs.length) {
+      setNfts(filteredNFTs);
+    } else {
+      setNfts(nftsCopy);
+    }
+  };
+
+  const onClearSearch = () => {
+    if (nfts.length && nftsCopy.length) {
+      setNfts(nftsCopy);
+    }
+  };
 
   return (
     <div className="w-full flex justify-start items-center flex-col min-h-screen">
@@ -48,7 +65,7 @@ const MyNFTs = () => {
           <p className="font-poppins dark:text-white text-nft-black-1 font-semibold text-2xl mt-6">{shortenAddress(currentAccount)}</p>
         </div>
       </div>
-      {!isLoading && !nfts.length
+      {!isLoading && !nfts.length && !nftsCopy.length
         ? (
           <div className="flexCenter sm:p-4 p-16">
             <h1 className="font-poppins dark:text-white text-nft-black-1 font-extrabold text-3xl">You don't own any NFTS</h1>
