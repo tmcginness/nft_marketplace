@@ -13,6 +13,7 @@ const Home = () => {
   const parentRef = useRef(null);
   const scrollRef = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [nftsCopy, setNftsCopy] = useState([]);
   const { theme } = useTheme();
   const [hideButtons, setHideButtons] = useState(false);
   const [nfts, setNfts] = useState([]);
@@ -55,7 +56,7 @@ const Home = () => {
     };
   });
 
-  const topCreators = getCreators(nfts);
+  const topCreators = getCreators(nftsCopy);
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
