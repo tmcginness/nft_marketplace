@@ -34,7 +34,7 @@ const Searchbar = ({ activeSelect, setActiveSelect, handleSearch, clearSearch })
           alt="search"
           height={20}
           width={20}
-          className={theme === 'light' && 'filter invert'}
+          className={theme === 'light' ? 'filter invert' : ''}
         />
         <input
           type="text"
@@ -45,7 +45,7 @@ const Searchbar = ({ activeSelect, setActiveSelect, handleSearch, clearSearch })
         />
       </div>
 
-      <div onClick={() => setToggle((prevToggle) => !prevToggle)} className="relative flexBetween ml-4 sm:ml-0 sm:mt-2 min-w-190 cursor-pointer dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 px-4 rounded-md">
+      <div onClick={() => setToggle((prevToggle) => !prevToggle)} className="relative flexBetween ml-4 sm:ml-0 sm:mt-2 min-w-190 cursor-pointer dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 px-4 py-3 rounded-md">
         <p className="font-poppins dark:text-white text-nft-black-1 font-normal text-xs">{activeSelect}</p>
         <Image
           src={images.arrow}
@@ -53,7 +53,7 @@ const Searchbar = ({ activeSelect, setActiveSelect, handleSearch, clearSearch })
           width={15}
           height={15}
           alt="arrow"
-          className={theme === 'light' && 'filter invert'}
+          className={theme === 'light' ? 'filter invert' : ''}
         />
         {toggle && (
         <div className="absolute top-full left-0 right-0 w-full mt-3 z-10 dark:bg-nft-black-2 bg-white border dark:border-nft-black-2 border-nft-gray-2 py-3 px-4 rounded-md">

@@ -53,7 +53,7 @@ const CreateNFT = () => {
                     height={100}
                     objectFit="contain"
                     alt="Upload"
-                    className={theme === 'light' && 'filter invert'}
+                    className={theme === 'light' ? 'filter invert' : ''}
                   />
                 </div>
                 <p className="flex-1 font-poppins dark:text-white text-nft-black-1 font-semibold text-sm">Drag and Drop File</p>

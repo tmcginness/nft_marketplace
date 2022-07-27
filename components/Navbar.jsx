@@ -9,7 +9,7 @@ import { NFTContext } from '../context/NFTContext';
 import images from '../assets';
 import Button from './Button';
 
-const MenuItems = ({ isMobile, active, setActive }) => {
+const MenuItems = ({ isMobile, active, setActive, setisOpen }) => {
   const generateLink = (i) => {
     switch (i) {
       case 0:
@@ -26,7 +26,13 @@ const MenuItems = ({ isMobile, active, setActive }) => {
       {['Explore NFTs', 'Listed NFTs', 'My NFTS'].map((item, i) => (
         <li
           key={i}
-          onClick={() => { setActive(item); }}
+          onClick={() => {
+            setActive(item);
+
+            if (isMobile) {
+              setisOpen(false);
+            }
+          }}
           className={`flex flex-row items-center font-poppins font-semibold text-base dark:hover:text-white hover:text-nft-dark mx-3 
           ${active === item
             ? 'dark:text-white text-nft-black-1'
@@ -40,7 +46,7 @@ const MenuItems = ({ isMobile, active, setActive }) => {
   );
 };
 
-const ButtonGroup = ({ setActive, router }) => {
+const ButtonGroup = ({ setActive, router, setisOpen }) => {
   const { connectWallet, currentAccount } = useContext(NFTContext);
 
   return currentAccount ? (
@@ -49,6 +55,7 @@ const ButtonGroup = ({ setActive, router }) => {
       classStyles="mx-2 rounded-xl"
       handleClick={() => {
         setActive('');
+        setisOpen(false);
         router.push('/create-nft');
       }}
     />
@@ -96,6 +103,10 @@ const Navbar = () => {
   const [isOpen, setisOpen] = useState(false);
 
   useEffect(() => {
+    setTheme('dark');
+  }, []);
+
+  useEffect(() => {
     checkActive(active, setActive, router);
   }, [router.pathname]);
 
@@ -110,7 +121,14 @@ const Navbar = () => {
         </Link>
 
         <Link href="/">
-          <div className=" cursor-pointer hidden md:flex" onClick={() => {}}><Image src={images.logo02} objectFit="contain" width={32} height={32} alt="Logo" /></div>
+          <div
+            className=" cursor-pointer hidden md:flex"
+            onClick={() => {
+              setActive('Explore NFTs');
+              setisOpen(false);
+            }}
+          ><Image src={images.logo02} objectFit="contain" width={32} height={32} alt="Logo" />
+          </div>
         </Link>
       </div>
       <div className="flex flex-initial flex-row justify-end">
@@ -140,7 +158,7 @@ const Navbar = () => {
             height={25}
             alt="close"
             onClick={() => setisOpen(false)}
-            className={theme === 'light' && 'filter invert'}
+            className={theme === 'light' ? 'filter invert' : ''}
 
           />
         )
@@ -152,17 +170,17 @@ const Navbar = () => {
               height={25}
               alt="menu"
               onClick={() => setisOpen(true)}
-              className={theme === 'light' && 'filter invert'}
+              className={theme === 'light' ? 'filter invert' : ''}
             />
           )}
 
         {isOpen && (
         <div className="fixed inset-0 top-65 dark:bg-nft-dark bg-white z-10 nav-h flex justify-between flex-col">
           <div className="flex-1 p-4">
-            <MenuItems active={active} setActive={setActive} isMobile />
+            <MenuItems active={active} setisOpen={setisOpen} setActive={setActive} isMobile />
           </div>
           <div className="p-4 border-t dark:border-nft-black-1 border-nft-gray-1">
-            <ButtonGroup setActive={setActive} router={router} />
+            <ButtonGroup setActive={setActive} setisOpen={setisOpen} router={router} />
           </div>
         </div>
         )}

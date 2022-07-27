@@ -23,6 +23,7 @@ const Home = () => {
     fetchNFTs()
       .then((items) => {
         setNfts(items.reverse());
+        setNftsCopy(items);
         setIsLoading(false);
       });
   }, []);
@@ -92,7 +93,7 @@ const Home = () => {
     };
   });
 
-  const topCreators = getCreators(nfts);
+  const topCreators = getCreators(nftsCopy);
 
   return (
     <div className="flex justify-center sm:px-4 p-12">
@@ -131,7 +132,7 @@ const Home = () => {
                         layout="fill"
                         objectFit="contain"
                         alt="left-arrow"
-                        className={theme === 'light' && 'filter invert'}
+                        className={theme === 'light' ? 'filter invert' : ''}
                       />
                     </div>
                     <div onClick={() => handleScroll('right')} className="absolute w-8 h-8 minlg:w-12 minlg:h-12 top-45 cursor-pointer right-0">
@@ -140,7 +141,7 @@ const Home = () => {
                         layout="fill"
                         objectFit="contain"
                         alt="left-arrow"
-                        className={theme === 'light' && 'filter invert'}
+                        className={theme === 'light' ? 'filter invert' : ''}
                       />
                     </div>
                   </>

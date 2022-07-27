@@ -66,7 +66,7 @@ const Footer = () => {
                   weight={24}
                   alt="social"
                   objectFit="contain"
-                  className={theme === 'light' && 'filter invert'}
+                  className={theme === 'light' ? 'filter invert' : ''}
                 />
               </div>
             ))}
