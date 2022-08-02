@@ -70,7 +70,9 @@ export const NFTProvider = ({ children }) => {
     const price = ethers.utils.parseUnits(nft.price.toString(), 'ether');
 
     const transaction = await contract.createMarketSale(nft.tokenId, { value: price });
+    setIsLoadingNFT(true);
     await transaction.wait();
+    setIsLoadingNFT(false);
   };
 
   const checkIfWalletIsConnected = async () => {
@@ -120,6 +122,7 @@ export const NFTProvider = ({ children }) => {
       ? await contract.createToken(url, price, { value: listingPrice.toString() })
       : await contract.resellToken(id, price, { value: listingPrice.toString() });
 
+    setIsLoadingNFT(true);
     await transaction.wait();
   };
 
@@ -148,7 +151,7 @@ export const NFTProvider = ({ children }) => {
   return (
 
     <NFTContext.Provider
-      value={{ nftCurrency, connectWallet, createSale, currentAccount, uploadToIPFS, createNFT, fetchNFTs, fetchMyNFTsOrListedNFTs, buyNFT }}
+      value={{ nftCurrency, isLoadingNFT, connectWallet, createSale, currentAccount, uploadToIPFS, createNFT, fetchNFTs, fetchMyNFTsOrListedNFTs, buyNFT }}
     >
       {children}
     </NFTContext.Provider>
