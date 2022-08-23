@@ -1,6 +1,7 @@
 {
   "name": "nft_marketplace",
   "version": "1.0.0",
+  "homepage": "https://nft.tedmcginness.xyz/",
   "private": true,
   "scripts": {
     "dev": "next dev",

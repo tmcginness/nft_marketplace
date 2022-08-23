@@ -11,7 +11,7 @@ const ResellNFT = () => {
   const [image, setImage] = useState('');
   const { createSale, isLoadingNFT } = useContext(NFTContext);
 
-  const fetchNFT = async (params) => {
+  const fetchNFT = async () => {
     const { data } = await axios.get(tokenURI);
 
     setPrice(data.price);

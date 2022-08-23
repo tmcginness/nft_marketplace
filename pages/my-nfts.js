@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { NFTContext } from '../context/NFTContext';
 import { Loader, NFTCard, Banner, Searchbar } from '../components';
 import images from '../assets';
-import { shortenAddress } from './utils/shortenAddress';
+import { shortenAddress } from '../utils/shortenAddress';
 
 const MyNFTs = () => {
   const { fetchMyNFTsOrListedNFTs, currentAccount } = useContext(NFTContext);
@@ -87,7 +87,7 @@ const MyNFTs = () => {
       {!isLoading && !nfts.length && !nftsCopy.length
         ? (
           <div className="flexCenter sm:p-4 p-16">
-            <h1 className="font-poppins dark:text-white text-nft-black-1 font-extrabold text-3xl">You don't own any NFTS</h1>
+            <h1 className="font-poppins dark:text-white text-nft-black-1 font-extrabold text-3xl">You don&apos;t own any NFTS</h1>
           </div>
         )
         : (

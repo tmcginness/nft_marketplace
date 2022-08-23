@@ -2,9 +2,9 @@ import { useState, useEffect, useContext } from 'react';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
 import { NFTContext } from '../context/NFTContext';
-import { Modal, Loader, NFTCard, Button } from '../components';
+import { Modal, Loader, Button } from '../components';
 import images from '../assets';
-import { shortenAddress } from './utils/shortenAddress';
+import { shortenAddress } from '../utils/shortenAddress';
 
 const PaymentBodyCMP = ({ nft, nftCurrency }) => (
   <div className="flex flex-col">
