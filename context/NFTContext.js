@@ -5,7 +5,18 @@ import axios from 'axios';
 import { create as ipfsHttpClient } from 'ipfs-http-client';
 import { MarketAddress, MarketAddressABI } from './constants';
 
-const client = ipfsHttpClient('https://ipfs.infura.io:5001/api/v0');
+const projectId = process.env.NEXT_PUBLIC_IPFS_PROJECT_ID;
+const projectSecret = process.env.NEXT_PUBLIC_API_KEY_SECRET;
+const auth = `Basic ${Buffer.from(`${projectId}:${projectSecret}`).toString('base64')}`;
+
+const client = ipfsHttpClient({
+  host: 'ipfs.infura.io',
+  port: 5001,
+  protocol: 'https',
+  headers: {
+    authorization: auth,
+  },
+});
 
 const fetchContract = (signerOrProvider) => new ethers.Contract(MarketAddress, MarketAddressABI, signerOrProvider);
 
@@ -97,14 +108,14 @@ export const NFTProvider = ({ children }) => {
     window.location.reload();
   };
 
-  const uploadToIPFS = async (file, setFileUrl) => {
+  const uploadToIPFS = async (file) => {
+    const subdomain = 'https://teds-nft-marketplace.infura-ipfs.io';
     try {
       const added = await client.add({ content: file });
-      const url = `https://ipfs.infura.io/ipfs/${added.path}`;
-
-      return url;
+      const URL = `${subdomain}/ipfs/${added.path}`;
+      return URL;
     } catch (error) {
-      console.log('Error uploading file to ipfs');
+      console.log('Error uploading file to IPFS.');
     }
   };
 
