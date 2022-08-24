@@ -1,4 +1,5 @@
 .secret
+.secretcopy
 
 node_modules
 
